@@ -1,0 +1,23 @@
+{
+  "name": "tcp-broker",
+  "version": "1.0.0",
+  "description": "A tcp server, that receives messages from a client and can publish them to n subscribers",
+  "main": "app.js",
+  "scripts": {
+    "test": "mocha test/test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/BaloMueller/tcp-broker.git"
+  },
+  "author": "Sebastian Mueller",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BaloMueller/tcp-broker/issues"
+  },
+  "homepage": "https://github.com/BaloMueller/tcp-broker",
+  "devDependencies": {
+    "chai": "^1.10.0",
+    "mocha": "^2.0.1"
+  }
+}
