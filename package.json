@@ -4,7 +4,7 @@
   "description": "A tcp server, that receives messages from a client and can publish them to n subscribers",
   "main": "app.js",
   "scripts": {
-    "test": "mocha test/test.js"
+    "test": "mocha test/event-listener.js"
   },
   "repository": {
     "type": "git",
@@ -18,6 +18,8 @@
   "homepage": "https://github.com/BaloMueller/tcp-broker",
   "devDependencies": {
     "chai": "^1.10.0",
-    "mocha": "^2.0.1"
+    "mocha": "^2.0.1",
+    "mockery": "^1.4.0",
+    "sinon": "^1.12.1"
   }
 }

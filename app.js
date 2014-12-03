@@ -5,7 +5,7 @@ var net = require('net'),
 
 var eventEmitter = new EventEmitter(),
 	eventSource = new EventSource(eventEmitter),
-	eventListener = EventListener(eventEmitter);
+	eventListener = new EventListener(eventEmitter);
 
 eventEmitter.setMaxListeners(0);
 
@@ -13,6 +13,6 @@ eventSource.createServer().listen(9090, function() {
   console.log('endpoint for event source open');
 });
 
-eventListener.listen(9099, function() { 
+eventListener.createServer().listen(9099, function() { 
   console.log('endpoint for receivers open');
 });
