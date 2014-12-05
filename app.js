@@ -13,6 +13,14 @@ eventSource.createServer().listen(9090, function() {
   console.log('endpoint for event source open');
 });
 
-eventListener.createServer().listen(9099, function() { 
+eventListener.CreateServer().listen(9099, function() { 
   console.log('endpoint for receivers open');
 });
+
+setInterval(function() {
+	console.log(count + '/1000ms');
+	count = 0;
+}, 1000);
+
+var count = 0;
+eventEmitter.on('msg', function () { count = count+1; });
