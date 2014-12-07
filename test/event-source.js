@@ -94,4 +94,16 @@ describe('Listeners', function() {
       assert(line, expected);
     });
   });
+
+  describe('DataReceived()', function() {
+    it('emits event for each line', function() {
+      var callback = sandbox.mock().exactly(4);
+      eventEmitter.on('msg', callback);
+      var line = "0|B\r\n0|F|0|0\r\n0|S|0|0\r\n0|U|0|0";
+
+      source.DataReceived(line);
+
+      expect(callback.verify()).to.be.true();
+    });
+  });
 });
