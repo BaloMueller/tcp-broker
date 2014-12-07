@@ -4,7 +4,7 @@
   "description": "A tcp server, that receives messages from a client and can publish them to n subscribers",
   "main": "app.js",
   "scripts": {
-    "test": "mocha test/event-listener.js"
+    "test": "mocha test/*.js"
   },
   "repository": {
     "type": "git",

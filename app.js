@@ -23,4 +23,4 @@ setInterval(function() {
 }, 1000);
 
 var count = 0;
-eventEmitter.on('msg', function () { count = count+1; });
+eventEmitter.on('msg', function () { count++; });

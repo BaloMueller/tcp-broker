@@ -17,7 +17,6 @@ describe('Listeners', function() {
 
 	beforeEach(function(){
     mockery.registerAllowables(['net','events','./Client.js', '../lib/Client.js']);
-    //mockery.registerMock('../lib/Client.js', stubbedClient);
     mockery.registerAllowable('../lib/event-listener.js', true);
 
 		EventEmitter = require('events').EventEmitter;
@@ -34,6 +33,63 @@ describe('Listeners', function() {
   after(function() {
     mockery.disable();
   });
+
+  describe('Login', function() {
+    it('does not works with anything else than positive numbers', function() {
+    	var conn = { 'isLoggedIn': false }
+
+    	var inputs = ["", "abc", "-1", "a1"];
+    	for(i=0; i<inputs.length; i++) {
+    		expect(function() {listener.TryLogin(inputs[i], conn);})
+	    		.to.throw('Client tried to log in with: ' + inputs[i]);
+    	}
+    });
+
+    it('can\'t log in if user with this id already exists' , function() {
+    	var conn = { 'isLoggedIn': false }
+
+      listener.clients[0] = {};
+  		expect(function() {listener.TryLogin("0", conn);})
+  			.to.throw('Client tried to log in with id 0, which already exists.');
+    });
+
+    it('adds client for this id' , function() {
+    	var conn = { 'isLoggedIn': false, 'on': sandbox.stub() }
+      expect(Object.keys(listener.clients).length).to.equal(0);
+
+  		listener.TryLogin("1", conn);
+
+  		expect(Object.keys(listener.clients).length).to.equal(1);
+  		expect(listener.clients[0]).not.exist();
+  		expect(listener.clients[1]).exist();
+    });
+
+    it('does nothing for connections, that are already logged in' , function() {
+      var initialObject = {}
+      listener.clients[0] = initialObject;
+      expect(listener.clients[0]).equal(initialObject);
+    	
+    	var otherObject = { 'isLoggedIn': true }
+  		listener.TryLogin("0", otherObject);
+
+  		expect(listener.clients[0]).equal(initialObject);
+  		expect(listener.clients[0]).not.equal(otherObject);
+    });
+  });
+
+  describe('Logout', function() {
+    it('should remove client from list', function(){
+      listener.clients[0] = {};
+      expect(Object.keys(listener.clients).length).to.equal(1);
+  		expect(listener.clients[0]).exist();
+
+      listener.Logout(0);
+
+      expect(Object.keys(listener.clients).length).to.equal(0);
+  		expect(listener.clients[0]).not.exist();
+    });
+  });
+
 
   describe('broadcast event', function() {
     it('expected to be received by every listener', function(){
