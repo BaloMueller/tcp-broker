@@ -7,20 +7,18 @@ var eventEmitter = new EventEmitter(),
 	eventSource = new EventSource(eventEmitter),
 	eventListener = new EventListener(eventEmitter);
 
+// The eventEmitter is a PubSub system to send messages
+// from the sender to the clients
 eventEmitter.setMaxListeners(0);
 
-eventSource.createServer().listen(9090, function() {
+// The eventSource is the Endpoint for the sender of all 
+// of the events
+eventSource.CreateServer().listen(9090, function() {
   console.log('endpoint for event source open');
 });
 
+// The eventListener ist the Endpoint for all the clients
+// who listen to sent events
 eventListener.CreateServer().listen(9099, function() { 
   console.log('endpoint for receivers open');
 });
-
-setInterval(function() {
-	console.log(count + '/1000ms');
-	count = 0;
-}, 1000);
-
-var count = 0;
-eventEmitter.on('msg', function () { count++; });

@@ -94,7 +94,7 @@ describe('Listeners', function() {
   describe('broadcast event', function() {
     it('expected to be received by every listener', function(){
     	var rawMsg = '0|B';
-    	var stubbedClient = { send: sandbox.spy().withArgs(rawMsg) };
+    	var stubbedClient = { Send: sandbox.spy().withArgs(rawMsg) };
       listener.clients[0] = stubbedClient;
 
       listener.HandleMsgFromSender({
@@ -103,7 +103,7 @@ describe('Listeners', function() {
 				'raw': rawMsg
 			});
 
-			expect(stubbedClient.send.calledOnce).to.be.true();
+			expect(stubbedClient.Send.calledOnce).to.be.true();
     });
   });
 
@@ -111,7 +111,7 @@ describe('Listeners', function() {
     it('expected follower to be added to this user', function(){
       listener.clients[0] = new Client(null);
 
-      var followers = listener.clients[0].getFollowers();
+      var followers = listener.clients[0].GetFollowers();
 			expect(followers).to.be.an('array');
 			expect(followers.length).to.equal(0);
 
@@ -123,7 +123,7 @@ describe('Listeners', function() {
 				'raw': '0|F|0|1'
 			});
 
-      followers = listener.clients[0].getFollowers();
+      followers = listener.clients[0].GetFollowers();
 			expect(followers.length).to.equal(1);
 			expect(followers[0]).to.equal(1);
     });
@@ -133,9 +133,9 @@ describe('Listeners', function() {
     it('expected follower to be added to this user', function(){
 			expect(Object.keys(listener.clients).length).to.equal(0);
       listener.clients[0] = new Client(null);
-      listener.clients[0].addFollower(1);
+      listener.clients[0].AddFollower(1);
 
-      var followers = listener.clients[0].getFollowers();
+      var followers = listener.clients[0].GetFollowers();
 			expect(followers).to.be.an('array');
 			expect(followers.length).to.equal(1);
 
@@ -147,7 +147,7 @@ describe('Listeners', function() {
 				'raw': '0|U|1|0'
 			});
 
-      followers = listener.clients[0].getFollowers();
+      followers = listener.clients[0].GetFollowers();
 			expect(followers.length).to.equal(0);
     });
   });
@@ -155,7 +155,7 @@ describe('Listeners', function() {
   describe('private message event', function() {
     it('expected message to be sent to the receipient', function(){
     	var rawMsg = '0|P|0|1';
-    	var stubbedClient = { send: sandbox.spy().withArgs(rawMsg) };
+    	var stubbedClient = { Send: sandbox.spy().withArgs(rawMsg) };
       listener.clients[0] = stubbedClient;
 
       listener.HandleMsgFromSender({
@@ -166,7 +166,7 @@ describe('Listeners', function() {
 				'raw': rawMsg
 			});
 
-			expect(stubbedClient.send.calledOnce).to.be.true();
+			expect(stubbedClient.Send.calledOnce).to.be.true();
     });
   });
 
@@ -175,9 +175,9 @@ describe('Listeners', function() {
     	var rawMsg = '0|S|0|1';
       
       listener.clients[0] = new Client(null);
-      listener.clients[0].addFollower(1);
+      listener.clients[0].AddFollower(1);
     	
-    	var stubbedClient = { send: sandbox.spy().withArgs(rawMsg) };
+    	var stubbedClient = { Send: sandbox.spy().withArgs(rawMsg) };
       listener.clients[1] = stubbedClient;
 
       listener.HandleMsgFromSender({
@@ -187,7 +187,7 @@ describe('Listeners', function() {
 				'raw': rawMsg
 			});
 
-			expect(stubbedClient.send.calledOnce).to.be.true();
+			expect(stubbedClient.Send.calledOnce).to.be.true();
     });
   });
 });
