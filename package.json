@@ -4,11 +4,15 @@
   "description": "A tcp server, that receives messages from a client and can publish them to n subscribers",
   "main": "app.js",
   "scripts": {
+    "start": "node app.js",
     "test": "mocha test/*.js"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/BaloMueller/tcp-broker.git"
+  },
+  "engines": {
+    "node": "0.11.x"
   },
   "author": "Sebastian Mueller",
   "license": "ISC",
